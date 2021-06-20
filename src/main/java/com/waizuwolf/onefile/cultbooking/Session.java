@@ -1,9 +1,9 @@
 package com.waizuwolf.onefile.cultbooking;
 
+import com.google.common.collect.Sets;
 import com.waizuwolf.onefile.common.exception.InputValidationException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 import lombok.Data;
@@ -11,6 +11,7 @@ import org.junit.platform.commons.util.StringUtils;
 
 @Data
 public class Session {
+
   private static final double WAITLIST_FACTOR = 0.3;
 
   private String name;
@@ -31,8 +32,8 @@ public class Session {
     this.waitlistCapacity = (int) (capacity * WAITLIST_FACTOR);
     this.startTime = startTime;
     this.endTime = endTime;
-    this.enrolledUsers = new HashSet<>();
-    this.waitListUsers = new HashSet<>();
+    this.enrolledUsers = Sets.newHashSetWithExpectedSize(capacity);
+    this.waitListUsers = Sets.newHashSetWithExpectedSize(waitlistCapacity);
     this.waitingQueue = new LinkedList<>();
   }
 
